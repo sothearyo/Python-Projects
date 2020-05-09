@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall!</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row border-bottom py-3">
+            <div class="col-6">
+                <h2>Coding Dojo Wall</h2>
+            </div>
+            <div class="col-3">
+                <p>Welcome {{this_user.first_name}}!</p>
+            </div>
+            <div class="col-3 text-right">
+                <a href="/logout">Log Out</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <form action="/wall/post_message" method="post">
+                    {% csrf_token %}
+                    <div class="row-col">
+                        <label for="msg">Post a message</label>
+                    </div>
+                    <div class="row-col">
+                        <textarea name="msg" style="width:100%;"></textarea>
+                    </div>
+                    <div class="row-col">
+                        <button type="submit">Post a Message!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row pt-5">
+            <div class="col">
+                {% for i in all_messages %}
+                    <h5>{{i.user.first_name}} - {{i.created_at}}</h5>
+                    <p>{{i.msg}}</p>
+                    <div class="row-col px-5 pb-4">
+                        {% for j in all_comments %}
+                            {% if j.msg.id == i.id %}
+                                <div class="row">
+                                    <div class="col">
+                                        <h6>{{j.user.first_name}} - {{j.created_at}}</h6>
+                                    </div>
+                                    <div class="col">
+                                        {% if this_user.id == j.user.id %}
+                                            <form action="/wall/delete_comment" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="comment_id" value="{{j.id}}"/>
+                                                <button type="submit">Delete Comment</button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <p>{{j.comment}}</p>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <form action="/wall/comment_on_msg" method="post">
+                            {% csrf_token %}
+                            <div class="row-col">
+                                <label for="msg">Post a comment</label>
+                            </div>
+                            <div class="row-col">
+                                <textarea name="comment" style="width:100%;"></textarea>
+                            </div>
+                            <div class="row-col">
+                                <input type="hidden" name="msg_id" value="{{i.id}}"/>
+                                <button type="submit">Post a Comment!</button>
+                            </div>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        
+
+
+
+
+    </div>
+
+</body>
+</html>

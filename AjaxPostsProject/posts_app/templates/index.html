@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ajax Posts</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('form').submit(function(e){
+                    e.preventDefault()
+                    $.post($(this).attr('action'),$('form').serialize(), function(serverResponse){
+                        $.get("/all_notes", function(serverResponse){
+                            $(".all_notes").html(serverResponse);
+                        })
+                    })
+                })
+                $(document).on('click','.deleteNote', function(e){
+                    e.preventDefault()
+                    $.get($(this).attr('href'), function(serverResponse){
+                        $(".all_notes").html(serverResponse);
+                    })
+                })
+            })
+        </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row p-1">
+            <h1>My Posts</h1>
+        </div>
+        <div class="all_notes">
+            <div class="row">
+                {% for i in all_notes%}
+                    <div class="col-3 m-0 p-0">
+                        <div class="row-col m-2 border">{{i.note}} <a href="notes/delete/{{i.id}}" class="deleteNote">Delete</a></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row p-4">
+            <form action="/add_note" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <label for="note">Add a note:</label>
+                </div>
+                <div class="row">
+                    <textarea id="note" name="note"></textarea>
+                </div>
+                <div class="row mt-2">
+                    <button type="submit">Post it!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

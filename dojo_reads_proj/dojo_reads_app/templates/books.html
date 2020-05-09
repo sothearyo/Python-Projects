@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row border-bottom py-3">
+            <div class="col-6">
+                <h3>Welcome, {{this_user.full_name}}!</h3>
+            </div>
+            <div class="col-4 text-right">
+                <a style="float:right;" href="/books/add">Add a Book and Review</a>
+            </div>
+            <div class="col-2 text-right">
+                <a href="/logout">Log Out</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-7">
+                <div class="row px-3 py-4">
+                    <h4>Recent Book Reviews</h4>
+                </div>
+                {% for i in latest_reviews %}
+                    <div class="col px-3 py-2">
+                        <div class="row"><p><a href="/books/{{i.book.id}}">{{i.book.title}}</a></p></div>
+                        <div class="row pl-3"><p>Rating: {{i.rating}}/5</p></div>
+                        <div class="row pl-3"><p><a href="/books/user/{{i.user.id}}">{{i.user.alias}}</a> says: {{i.review}}</p></div>
+                        <div class="row pl-3"><p>Posted on: {{i.created_at | date:'M d, Y'}}</p></div>
+                    </div>
+                {% endfor %}  
+            </div>
+            <div class="col-5">
+                <div class="row py-4">
+                    <h4>Other Books with Reviews</h4>
+                </div>
+                <div class="row p-1 border" style="height: 300px; overflow: auto;">
+                    <div class="col">
+                        {% for book in all_books%}
+                            <p><a href="/books/{{book.id}}">{{book.title}}</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</body>
+</html>

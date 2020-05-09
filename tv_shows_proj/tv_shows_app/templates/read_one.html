@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read (One)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row py-2 px-5" style="float:right;">
+            <a href="/shows">Go Back to All Shows</a>
+        </div>
+        <div class="row px-0 py-5">
+            <h1>TV Show {{this_show.id}}</h1>
+        </div>
+        <div class="row px-3">
+            <p>Title:  {{this_show.title}}</p><br>
+        </div>
+        <div class="row px-3">
+            <p>Network:  {{this_show.network}}</p><br>
+        </div>
+        <div class="row px-3">
+            <p>Release Date:  {{this_show.release_date}}</p><br>
+        </div>
+        <div class="row px-3">
+            <p>Description:  {{this_show.description}}</p><br>
+        </div>
+        <div class="row pt-5 px-3">
+            <p>Last Updated:  {{this_show.updated_at}}</p><br>
+        </div>
+
+        
+        <div class="row pt-2 px-3">
+            <p><a href="/shows/{{this_show.id}}/edit">Edit</a>  |  <a href="/shows/{{this_show.id}}/delete">Delete</a></p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>

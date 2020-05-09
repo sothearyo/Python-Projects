@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read (All)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+            <h1>All Shows</h1>
+        </div>
+
+        <div class="row">
+
+            <table class="table border">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Network</th>
+                        <th scope="col">Release Date</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in all_shows %}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.title}}</td>
+                        <td>{{i.network}}</td>
+                        <td>{{i.release_date}}</td>
+                        <td><a href="/shows/{{i.id}}">Show</a>  |  <a href="/shows/{{i.id}}/edit">Edit</a>  |  <a href="/shows/{{i.id}}/delete">Delete</a></td>
+                    </tr>
+                    {% endfor %}    
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="row">
+            <a href="/shows/new">Add a New Show</a>
+        </div>
+
+    </div>
+</body>
+</html>

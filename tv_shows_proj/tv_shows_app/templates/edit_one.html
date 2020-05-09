@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    
+
+    <div class="row py-4">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h1>Edit Show {{this_show.id}}</h1>
+        </div>
+        <div class="col-3">
+            <a href="/shows">Go Back to All Shows</a>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-3"></div>
+
+        <div class="col-6">
+
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <form action="/shows/{{this_show.id}}/edit" method="post">
+                {% csrf_token %}
+                <div class="row px-3">
+                    <h5>Title</h5>
+                    <input type="text" name="title" style="width:100%;" value="{{this_show.title}}">
+                </div>
+                <div class="row pt-5">
+                    <div class="col">
+                        <h5>Network</h5>
+                        <input type="text" name="network" style="width:95%;" value="{{this_show.network}}">
+                    </div>
+                    <div class="col">
+                        <h5>Release Date</h5>
+                        <input type="date" name="release_date" style="width:100%;" value="{{this_show.release_date|date:'Y-m-d'}}">
+                    </div>
+                </div>
+                <div class="row pt-5 px-3">
+                    <h5>Description</h5>
+                    <textarea name="description" rows="8" style="width:100%;">{{this_show.description}}</textarea>
+                </div>
+                <div class="row-col text-center pt-5">
+                    <button type="submit">Update</button>
+                </div>
+            </form>
+
+            <div class="row pt-4">
+                <div class="col text-center">
+                    <p><a href="/shows/{{this_show.id}}">Go to Show</a></p>
+                </div>
+            </div>
+    
+        </div>
+
+        <div class="col-3"></div>
+        
+    </div>
+    
+</body>
+</html>

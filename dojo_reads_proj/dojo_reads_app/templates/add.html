@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Book and Review</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-10 p-2 text-right">
+                <a href="/books">Home</a>
+            </div>
+            <div class="col-2 p-2 text-right">
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div class="row py-4">
+            <h5>Add a New Book Title and a Review:</h5>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+        </div>
+        <div class="row">
+            <form action="/books/add_review" method="post" style="width:100%;">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-4 py-1">
+                        <h6>Book Title:</h6>
+                    </div>
+                    <div class="col-6">
+                        <input name="title" type="text" style="width:100%;">
+                    </div>
+                </div>
+                <div class="row-col py-1">
+                    <h6>Author:</h6>
+                </div>
+                <div class="row py-1">
+                    <div class="col-4 pl-5">
+                        Choose from the list:
+                    </div>
+                    <div class="col-6">
+                        <select name="exist_author_id">
+                            <option value="">-select an author-</option>
+                            {% for an_author in all_authors %}
+                                <option value="{{an_author.id}}">{{an_author.full_name}}</option>
+                            {% endfor %}
+                          </select>                    
+                    </div>
+                </div>
+                <div class="row py-1">
+                    <div class="col-4 pl-5">
+                        Or add a new author:
+                    </div>
+                    <div class="col-6">
+                        <input name="new_author" type="text" style="width:100%;">
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div class="col-4 py-1">
+                        <h6>Review:</h6>
+                    </div>
+                    <div class="col-6">
+                        <textarea name="review" style="width:100%;"></textarea>
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div class="col-1 py-1">
+                        <h6>Rating:</h6>
+                    </div>
+                    <div class="col-1 p-0 text-right">
+                        <select name="rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select>                    
+                    </div>
+                    <div class="col-1">
+                        <p>stars</p>             
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 text-right">
+                        <button type="submit">Add Book and Review</button>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>

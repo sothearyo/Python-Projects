@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Book and Review</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-10 p-2 text-right">
+                <a href="/books">Home</a>
+            </div>
+            <div class="col-2 p-2 text-right">
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <h5>{{this_book.title}}</h5>
+        </div>
+        <div class="row">
+            Author: 
+            {% for i in this_book.authors.all %}
+                {{i.full_name}}
+            {% endfor %}
+        </div>
+
+        <div class="row pt-5">
+            <div class="col-7">
+                <div class="row border-bottom">
+                    <h5>Reviews</h5>
+                </div>
+                {% for i in this_book.book_reviews.all %}
+                <div class="row-col border-bottom p-2">
+                    <p>Rating: {{i.rating}}/5</p>
+                    <p><a href="/books/user/{{i.user.id}}">{{i.user.alias}}</a> says: {{i.review}}</p>
+                </div>
+                {% endfor %}    
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>
